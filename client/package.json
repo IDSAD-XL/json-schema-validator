@@ -23,8 +23,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "webpack --mode=production",
-    "dev": "webpack --mode=development",
+    "build:prod": "webpack --mode=production",
+    "build:dev": "webpack --mode=development",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "lint": "eslint --max-warnings=0 --ext .cjs --ext .jsx --ext .js --ext .ts . --ignore-path .gitignore --no-error-on-unmatched-pattern",

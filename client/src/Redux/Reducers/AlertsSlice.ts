@@ -10,19 +10,16 @@ const initialState: AlertsState = {
 }
 
 export const alertsSlice = createSlice({
-    name: 'schemes',
+    name: 'alerts',
     initialState,
     reducers: {
-        addSchema(state, action: PayloadAction<ISchema>) {
-            state.schemes.push(action.payload)
+        addSchema(state, action: PayloadAction<IAlert>) {
+            state.alerts.push(action.payload)
+            setTimeout(() => {
+                state.alerts.shift()
+            }, 4000)
         },
-        removeSchema(state, action: PayloadAction<ISchema>) {
-            state.schemes.filter(schema => schema.id !== action.payload.id)
-        },
-        setSchemes(state, action: PayloadAction<ISchema[]>) {
-            state.schemes = action.payload
-        }
     }
 })
 
-export default schemesSlice.reducer;
+export default alertsSlice.reducer;
