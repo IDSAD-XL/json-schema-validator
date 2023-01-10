@@ -1,3 +1,0 @@
-export const SET_SCHEMES = 'SET_SCHEMES'
-export const ADD_SCHEMES = 'ADD_SCHEMES'
-export const REMOVE_SCHEME = 'REMOVE_SCHEME'

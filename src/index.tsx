@@ -2,14 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './Assets/Styles/index.scss';
 import App from './App';
-import { createStore, applyMiddleware, Store } from "redux"
-import { Provider } from "react-redux"
-import thunk from "redux-thunk"
-import schemesReducer from "./Redux/reducers";
+import {Provider} from "react-redux";
+import {setupStore} from "./Redux/store";
 
-const store: Store<SchemesState, SchemaAction> & {
-    dispatch: DispatchType
-} = createStore(schemesReducer, applyMiddleware(thunk))
+const store = setupStore()
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
@@ -17,7 +13,7 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
       <Provider store={store}>
-          <App />
+        <App />
       </Provider>
   </React.StrictMode>
 );
