@@ -17,7 +17,7 @@ async function create(payload) {
 
   await user.save()
 
-  // const authUser =
+  return await authenticate(payload)
 }
 
 async function authenticate({ email, username, password }) {
@@ -37,4 +37,9 @@ async function authenticate({ email, username, password }) {
   return {
     error: errorTypes.AUTH_ERROR
   }
+}
+
+module.exports = {
+  create,
+  authenticate
 }
