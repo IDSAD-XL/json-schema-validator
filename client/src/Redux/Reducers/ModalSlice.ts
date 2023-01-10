@@ -1,9 +1,13 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {FC} from "react";
+
+export enum modalTypes {
+    register,
+    login
+}
 
 interface ModalState {
     open: boolean,
-    component: FC | null
+    component: modalTypes | null
 }
 
 const initialState: ModalState = {
@@ -21,7 +25,7 @@ export const modalSlice = createSlice({
         closeModal(state) {
             state.open = false
         },
-        setComponent(state, action: PayloadAction<FC>) {
+        setComponent(state, action: PayloadAction<modalTypes>) {
             state.component = action.payload
         }
     }

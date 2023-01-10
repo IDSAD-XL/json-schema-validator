@@ -1,5 +1,7 @@
-import React, {ReactNode} from 'react';
+import React from 'react';
 import {useAppSelector} from "../Hooks/redux";
+import {modalTypes} from "../Redux/Reducers/ModalSlice";
+import SignInForm from "./SignInForm";
 
 const ModalComponent = () => {
     const { open, component } = useAppSelector(state => state.modalSlice)
@@ -7,7 +9,7 @@ const ModalComponent = () => {
     return (
         <div className={`modal ${open ? 'active' : ''}`}>
             <div className="modal-body">
-                {component as ReactNode}
+                { component === modalTypes.register && <SignInForm />}
             </div>
         </div>
     );
