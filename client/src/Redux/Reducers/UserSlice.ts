@@ -1,27 +1,27 @@
-import {ISchema} from "../../Models/ISchema";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {IUser} from "../../Models/IUser";
 
 interface UserState {
-    id: '',
-    schemes: IUser[],
-    error: ''
+    user: IUser | null,
+    error: string,
 }
 
 const initialState: UserState= {
-    id: '',
-    schemes: [],
+    user: null,
     error: ''
 }
 
-export const schemesSlice = createSlice({
+export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        userDataFetch(state) {
-            // state.
+        userSetData(state, action: PayloadAction<IUser>) {
+            state.user = action.payload
         },
+        userFetchError(state, action: PayloadAction<string>) {
+            state.error = action.payload
+        }
     }
 })
 
-export default schemesSlice.reducer;
+export default userSlice.reducer;

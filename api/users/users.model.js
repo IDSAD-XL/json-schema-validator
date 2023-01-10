@@ -15,7 +15,7 @@ const schema = new Schema({
     type: String,
     required: true
   },
-  savedSchemes: {
+  schemes: {
     type: Array,
     required: false,
     default: [],
