@@ -8,6 +8,7 @@
     "@types/react-redux": "^7.1.25",
     "@uiw/react-textarea-code-editor": "^2.0.6",
     "ajv": "^8.12.0",
+    "axios": "^1.2.2",
     "cra-template-typescript": "1.2.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
