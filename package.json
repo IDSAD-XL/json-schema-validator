@@ -1,0 +1,74 @@
+{
+  "name": "json-schema-validtor",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@reduxjs/toolkit": "^1.9.1",
+    "@testing-library/react": "^13.4.0",
+    "@types/react-redux": "^7.1.25",
+    "@uiw/react-textarea-code-editor": "^2.0.6",
+    "ajv": "^8.12.0",
+    "cra-template-typescript": "1.2.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-redux": "^8.0.5",
+    "react-scripts": "5.0.1",
+    "redux-thunk": "^2.4.2",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "webpack --mode=production",
+    "dev": "webpack --mode=development",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
+    "lint": "eslint --max-warnings=0 --ext .cjs --ext .jsx --ext .js --ext .ts . --ignore-path .gitignore --no-error-on-unmatched-pattern",
+    "lint:fix": "eslint --ext .cjs --ext .jsx --ext .js --ext .ts . --ignore-path .gitignore --fix --no-error-on-unmatched-pattern",
+    "format": "prettier --ignore-path .gitignore -c \"**/*.js\" \"**/*.cjs\" \"**/*.jsx\" \"**/*.ts\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
+    "format:fix": "prettier --ignore-path .gitignore --write \"**/*.js\" \"**/*.cjs\" \"**/*.jsx\" \"**/*.ts\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
+    "fix": "npm run lint:fix && npm run format:fix"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "@tsconfig/recommended": "^1.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.48.0",
+    "@typescript-eslint/parser": "^5.48.0",
+    "eslint": "^8.31.0",
+    "eslint-plugin-react": "^7.31.11",
+    "eslint-plugin-sonarjs": "^0.17.0",
+    "prettier": "2.8.2",
+    "css-modules-typescript-loader": "^2.0.1",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "ts-loader": "^5.3.3",
+    "typescript": "^3.4.4",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.0",
+    "@types/node-sass": "^4.11.0",
+    "node-sass": "^4.12.0",
+    "css-loader": "^1.0.0"
+  },
+  "lint-staged": {
+    "**/*": "prettier --write --ignore-unknown"
+  }
+}
