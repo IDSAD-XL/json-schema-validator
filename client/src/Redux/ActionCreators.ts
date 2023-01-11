@@ -17,3 +17,7 @@ export const openModal = (modalType: modalTypes) => async (dispatch: AppDispatch
     dispatch(modalSlice.actions.setComponent(modalType))
     dispatch(modalSlice.actions.openModal())
 }
+
+export const closeModal = () => async (dispatch: AppDispatch) => {
+    dispatch(modalSlice.actions.closeModal())
+}
