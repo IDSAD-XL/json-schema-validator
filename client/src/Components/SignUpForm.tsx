@@ -33,7 +33,7 @@ const SignInForm = () => {
                 password: password
             }
 
-            const response = await axios.post("http://localhost:3080/api/user", {...postData})
+            const response = await axios.post("http://localhost:3080/api/user/register", {...postData})
 
             if (response.status === 200) {
                 const payload = response.data

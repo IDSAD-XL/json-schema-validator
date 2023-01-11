@@ -3,8 +3,8 @@ const express = require('express')
 const router = express.Router()
 const userService = require("./users.service");
 
-router.post('/', register)
-router.get('/', authenticate)
+router.post('/register', register)
+router.post('/login', authenticate)
 
 function register(req, res, next) {
   userService

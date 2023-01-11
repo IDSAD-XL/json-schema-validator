@@ -5,7 +5,8 @@ function jwt() {
 
   return expressJwt.expressjwt({ secret, algorithms: ["HS256"], isRevoked }).unless({
     path: [
-      "/api/user",
+      "/api/user/login",
+      "/api/user/register",
     ]
   })
 }
