@@ -32,6 +32,15 @@ export const schemesSlice = createSlice({
             if (findScheme) {
                 findScheme.name = action.payload.name
             }
+        },
+        updateSchema(state, action: PayloadAction<ISchema>) {
+            state.schemes.map((entry) => {
+                if (entry.id === action.payload.id) {
+                    return action.payload
+                } else {
+                    return entry
+                }
+            })
         }
     }
 })

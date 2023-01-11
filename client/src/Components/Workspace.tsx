@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import ajv from 'ajv';
 import {useAppDispatch, useAppSelector} from "../Hooks/redux";
-import {changeSchemeName} from "../Redux/ActionCreators";
+import {changeSchemeName, saveSchema} from "../Redux/ActionCreators";
 import {ISchema} from "../Models/ISchema";
 
 const schemaValidator = new ajv();
@@ -18,12 +18,17 @@ function Workspace() {
 
     const dispatch = useAppDispatch()
 
-    const [scheme, setScheme] = useState<ISchema>({id: '1', name: '', content: JSON.parse("{}"), lastChange: 11})
+    const [scheme, setScheme] = useState<ISchema>({id: '', name: '', content: "", lastChange: 1})
+    const [name, setName] = useState<string>('')
 
     const [schemaContent, setSchemaContent] = useState('');
     const [json, setJson] = useState('');
     const [schemaErrors, setSchemaErrors] = useState<ValidationError[]>([]);
     const [jsonErrors, setJsonErrors] = useState<ValidationError[]>([]);
+
+    const saveScheme = () => {
+        dispatch(saveSchema(scheme))
+    }
 
     const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
         if (!activeScheme) return
@@ -47,10 +52,8 @@ function Workspace() {
         } catch (error) {
             if (error instanceof SyntaxError) {
                 if (error.message.startsWith('Unexpected token ')) {
-                    // error is in JSON textarea
                     setJsonErrors([{ message: error.message, dataPath: '' }]);
                 } else {
-                    // error is in JSON schema textarea
                     setSchemaErrors([{ message: error.message, dataPath: '' }]);
                 }
             }
@@ -64,6 +67,17 @@ function Workspace() {
         }
     }, [activeScheme])
 
+    useEffect(() => {
+        setScheme(prevState => {
+            return {
+                ...prevState,
+                name: name,
+                lastChange: Date.now(),
+                content: schemaContent
+            }
+        })
+    }, [name, schemaContent])
+
     return (
         <div className="workspace-wrapper">
             {!activeScheme && <h4>Create or open saved scheme</h4>}
@@ -75,8 +89,8 @@ function Workspace() {
                           className="input-transparent"
                           placeholder="Give a name to your scheme"
                           type="text"
-                          value={scheme.name}
-                          onChange={handleChangeName}
+                          value={name}
+                          onChange={(e) => setName(e.target.value)}
                         />
                     </p>
                     <p>
@@ -126,7 +140,10 @@ function Workspace() {
                               ))}
                           </ul>
                       )}
-                    <button className="button" onClick={validate}>Validate</button>
+                    <div>
+                      <button className="button" onClick={validate}>Validate</button>
+                      <button className="button" onClick={saveScheme}>Save</button>
+                    </div>
                   </div>
                 </div>
             }

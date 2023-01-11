@@ -2,5 +2,5 @@ export interface ISchema {
     id: string,
     name: string,
     lastChange: number,
-    content: JSON,
+    content: string,
 }
