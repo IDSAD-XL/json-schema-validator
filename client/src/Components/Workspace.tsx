@@ -43,8 +43,10 @@ function JsonSchemaValidator() {
     };
 
     return (
-        <div>
-            <h1>JSON Schema Validator</h1>
+        <div className="workspace">
+            <div className="workspace__header">
+
+            </div>
             <div>
                 <h2>JSON Schema</h2>
                 <form>

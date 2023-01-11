@@ -3,12 +3,14 @@ import schemesReducer from './Reducers/SchemaSlice'
 import alertsReducer from './Reducers/AlertsSlice'
 import userSlice from "./Reducers/UserSlice";
 import modalSlice from "./Reducers/ModalSlice";
+import workspaceSlice from "./Reducers/WorkspaceSlice";
 
 const rootReducer = combineReducers({
     schemesReducer,
     alertsReducer,
     userSlice,
-    modalSlice
+    modalSlice,
+    workspaceSlice
 })
 
 export const setupStore = () => {
