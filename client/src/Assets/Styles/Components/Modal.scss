@@ -19,6 +19,12 @@
     border-radius: 5px;
     display: flex;
     flex-direction: column;
+    padding: 30px;
+    box-sizing: border-box;
+
+    .input, .button {
+      margin: 10px 0;
+    }
   }
 
   &.active {

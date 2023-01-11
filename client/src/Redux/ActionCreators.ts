@@ -13,7 +13,7 @@ export const fetchData = () => async (dispatch: AppDispatch) => {
     }
 }
 
-export const openRegisterModal = () => async (dispatch: AppDispatch) => {
-    dispatch(modalSlice.actions.setComponent(modalTypes.register))
+export const openModal = (modalType: modalTypes) => async (dispatch: AppDispatch) => {
+    dispatch(modalSlice.actions.setComponent(modalType))
     dispatch(modalSlice.actions.openModal())
 }

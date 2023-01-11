@@ -1,6 +1,13 @@
 .input {
   background: #F2F2F2;
   border-radius: 5px;
+  border: 0;
+  height: 50px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  padding-left: 10px;
+  box-sizing: border-box;
 }
 .input-label {
   font-size: 14px;

@@ -1,12 +1,13 @@
 import React from 'react';
 import {useAppDispatch} from "../Hooks/redux";
-import {openRegisterModal} from "../Redux/ActionCreators";
+import {openModal} from "../Redux/ActionCreators";
+import {modalTypes} from "../Redux/Reducers/ModalSlice";
 
 const Header = () => {
     const dispatch = useAppDispatch()
 
     const handleLoginButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-        dispatch(openRegisterModal())
+        dispatch(openModal(modalTypes.login))
     }
 
     return (

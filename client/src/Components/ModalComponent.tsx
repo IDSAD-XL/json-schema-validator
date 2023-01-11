@@ -9,7 +9,16 @@ const ModalComponent = () => {
     return (
         <div className={`modal ${open ? 'active' : ''}`}>
             <div className="modal-body">
-                { component === modalTypes.register && <SignInForm />}
+                <div className="modal-header">
+                    <p>
+                        { component === modalTypes.login && "Sign in"}
+                        { component === modalTypes.register && "Sign up"}
+                    </p>
+                    <div className="button-close">
+
+                    </div>
+                </div>
+                { component === modalTypes.login && <SignInForm />}
             </div>
         </div>
     );
