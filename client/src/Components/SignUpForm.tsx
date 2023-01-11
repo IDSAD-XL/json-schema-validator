@@ -20,7 +20,7 @@ const SignInForm = () => {
         dispatch(openModal(modalTypes.login))
     }
 
-    async function fetchRegister = () => {
+    async function fetchRegister () {
         try {
             const postData: IPostData = {
                 name: name,
