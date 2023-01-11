@@ -4,6 +4,8 @@ import {useAppSelector} from "../Hooks/redux";
 const Sidebar = () => {
     const { schemes } = useAppSelector(state => state.schemesReducer)
 
+
+
     return (
         <div className="sidebar">
             <div className="sidebar-header">
@@ -17,7 +19,16 @@ const Sidebar = () => {
                 </div>
             </div>
             <div className="sidebar-saved-schemes__items">
-                {schemes}
+                {schemes.length === 0 &&
+                    <p>You have no saved schemes</p>
+                }
+                {schemes.length > 0 &&
+                    schemes.map((item) =>
+                        <div key={item.id} className="sidebar-saved-schemes__item">
+                            ${item.name}
+                        </div>
+                    )
+                }
             </div>
         </div>
     );
