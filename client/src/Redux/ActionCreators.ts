@@ -13,6 +13,19 @@ export const fetchData = () => async (dispatch: AppDispatch) => {
     }
 }
 
+export const registerUser = () => async (dispatch: AppDispatch) => {
+    try {
+        const response = await axios.post<IUser>('http://localhost:3080/api/user')
+        dispatch(userSlice.actions.userSetData(response.data))
+    } catch (e) {
+        dispatch(userSlice.actions.userFetchError((e as Error).message))
+    }
+}
+
+export const setUser = (payload: IUser) => async (dispatch: AppDispatch) => {
+    dispatch(userSlice.actions.userSetData(payload))
+}
+
 export const openModal = (modalType: modalTypes) => async (dispatch: AppDispatch) => {
     dispatch(modalSlice.actions.setComponent(modalType))
     dispatch(modalSlice.actions.openModal())

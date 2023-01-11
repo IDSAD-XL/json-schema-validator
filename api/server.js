@@ -16,7 +16,7 @@ app.use(bodyParser.json())
 
 app.use(jwt())
 
-app.use('/api/users', require('./users/users.controller'))
+app.use('/api/user', require('./users/users.controller'))
 
 app.use(errorHandler)
 
