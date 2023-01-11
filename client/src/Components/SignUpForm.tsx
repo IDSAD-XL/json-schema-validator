@@ -3,6 +3,8 @@ import {useAppDispatch} from "../Hooks/redux";
 import {openModal} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
 import axios from "axios";
+import {userSlice} from "../Redux/Reducers/UserSlice";
+import {IUser} from "../Models/IUser";
 
 interface IPostData {
     name: string,
@@ -33,7 +35,18 @@ const SignInForm = () => {
 
             const response = await axios.post("http://localhost:3080/api/user", {...postData})
 
-            console.log(response)
+            if (response.status === 200) {
+                const payload = response.data
+
+                dispatch(userSlice.actions.userSetData({
+                    name: payload.name,
+                    id: payload.id,
+                    email: payload.email,
+                    schemes: payload.schemes
+                }))
+
+                dispatch(userSlice.actions.userSetToken(payload.token))
+            }
         } catch (e) {
             console.log(e)
         }

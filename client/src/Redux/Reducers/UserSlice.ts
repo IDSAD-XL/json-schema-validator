@@ -4,11 +4,13 @@ import {IUser} from "../../Models/IUser";
 interface UserState {
     user: IUser | null,
     error: string,
+    token: string | null,
 }
 
 const initialState: UserState= {
     user: null,
-    error: ''
+    error: '',
+    token: null
 }
 
 export const userSlice = createSlice({
@@ -20,6 +22,11 @@ export const userSlice = createSlice({
         },
         userFetchError(state, action: PayloadAction<string>) {
             state.error = action.payload
+        },
+        userSetToken(state, action: PayloadAction<string>) {
+            state.token = action.payload
+
+            localStorage.setItem('token', JSON.stringify(action.payload))
         }
     }
 })
