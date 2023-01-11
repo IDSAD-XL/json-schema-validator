@@ -2,7 +2,7 @@ import {ISchema} from "../../Models/ISchema";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 interface WorkspaceSlice {
-    activeScheme: ISchema | null
+    activeScheme: string | null
 }
 
 const initialState: WorkspaceSlice = {
@@ -13,7 +13,7 @@ export const workspaceSlice = createSlice({
     name: 'schemes',
     initialState,
     reducers: {
-        setSchema(state, action: PayloadAction<ISchema>) {
+        setSchema(state, action: PayloadAction<string>) {
           state.activeScheme = action.payload
         },
     }

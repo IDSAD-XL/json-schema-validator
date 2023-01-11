@@ -9,6 +9,11 @@ const initialState: SchemaState = {
     schemes: []
 }
 
+export interface IRenameScheme {
+    id: string,
+    name: string
+}
+
 export const schemesSlice = createSlice({
     name: 'schemes',
     initialState,
@@ -21,6 +26,12 @@ export const schemesSlice = createSlice({
         },
         setSchemes(state, action: PayloadAction<ISchema[]>) {
             state.schemes = action.payload
+        },
+        changeSchemeName(state, action: PayloadAction<IRenameScheme>) {
+            const findScheme = state.schemes.find((entry) => entry.id === action.payload.id)
+            if (findScheme) {
+                findScheme.name = action.payload.name
+            }
         }
     }
 })

@@ -6,7 +6,7 @@ import {modalSlice, modalTypes} from "./Reducers/ModalSlice";
 import {AlertTypes, IAlert} from "../Models/IAlert";
 import {alertsSlice} from "./Reducers/AlertsSlice";
 import {ISchema} from "../Models/ISchema";
-import {schemesSlice} from "./Reducers/SchemaSlice";
+import {IRenameScheme, schemesSlice} from "./Reducers/SchemaSlice";
 import {workspaceSlice} from "./Reducers/WorkspaceSlice";
 
 export const fetchData = () => async (dispatch: AppDispatch) => {
@@ -42,7 +42,7 @@ export const pushAlert = (alert: IAlert) => async (dispatch: AppDispatch) => {
     }, 8000)
 }
 
-export const createNewScheme = () => async (dispatch: AppDispatch) => {
+export const createNewScheme = () => async (dispatch: AppDispatch, getState) => {
     const newScheme: ISchema = {
         id: Math.floor(Math.random() * 5000000).toString(),
         name: "",
@@ -51,7 +51,8 @@ export const createNewScheme = () => async (dispatch: AppDispatch) => {
     }
 
     dispatch(schemesSlice.actions.addSchema(newScheme))
-    dispatch(setSchemeIntoWorkspace(newScheme))
+
+    dispatch(setSchemeIntoWorkspace(newScheme.id))
 
     dispatch(pushAlert({
         type: AlertTypes.success,
@@ -59,6 +60,10 @@ export const createNewScheme = () => async (dispatch: AppDispatch) => {
     }))
 }
 
-export const setSchemeIntoWorkspace = (scheme: ISchema) => async (dispatch: AppDispatch) => {
+export const setSchemeIntoWorkspace = (scheme: string) => async (dispatch: AppDispatch) => {
     dispatch(workspaceSlice.actions.setSchema(scheme))
+}
+
+export const changeSchemeName = (scheme: IRenameScheme) => async (dispatch: AppDispatch) => {
+    dispatch(schemesSlice.actions.changeSchemeName(scheme))
 }

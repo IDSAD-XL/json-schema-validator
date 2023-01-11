@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import ajv from 'ajv';
-import {useAppSelector} from "../Hooks/redux";
+import {useAppDispatch, useAppSelector} from "../Hooks/redux";
+import {changeSchemeName} from "../Redux/ActionCreators";
+import {ISchema} from "../Models/ISchema";
 
 const schemaValidator = new ajv();
 
@@ -10,16 +12,26 @@ interface ValidationError {
     dataPath: string;
 }
 
-function JsonSchemaValidator() {
+function Workspace() {
     const { activeScheme } = useAppSelector(state => state.workspaceSlice)
+    const { schemes } = useAppSelector(state => state.schemesReducer)
 
-    const [schema, setSchema] = useState('');
+    const dispatch = useAppDispatch()
+
+    const [scheme, setScheme] = useState<ISchema>({id: '1', name: '', content: JSON.parse("{}"), lastChange: 11})
+
+    const [schemaContent, setSchemaContent] = useState('');
     const [json, setJson] = useState('');
     const [schemaErrors, setSchemaErrors] = useState<ValidationError[]>([]);
     const [jsonErrors, setJsonErrors] = useState<ValidationError[]>([]);
 
+    const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
+        if (!activeScheme) return
+        dispatch(changeSchemeName({id: activeScheme, name: e.currentTarget.value}))
+    }
+
     const handleSchemaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-        setSchema(event.target.value);
+        setSchemaContent(event.target.value);
     };
 
     const handleJsonChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -28,7 +40,7 @@ function JsonSchemaValidator() {
 
     const validate = () => {
         try {
-            const schemaObject = JSON.parse(schema);
+            const schemaObject = JSON.parse(schemaContent);
             setSchemaErrors([]);
             schemaValidator.validate(schemaObject, json);
             setJsonErrors([]);
@@ -46,8 +58,11 @@ function JsonSchemaValidator() {
     };
 
     useEffect(() => {
-
-    })
+        const findScheme = schemes.find((entry) => entry.id === activeScheme)
+        if (findScheme) {
+            setScheme(findScheme)
+        }
+    }, [activeScheme])
 
     return (
         <div className="workspace-wrapper">
@@ -56,10 +71,16 @@ function JsonSchemaValidator() {
                 <div className="workspace">
                   <div className="workspace__header">
                     <p>
-                        <input className="input-transparent" placeholder="Give a name to your scheme" type="text" value={activeScheme.name} />
+                        <input
+                          className="input-transparent"
+                          placeholder="Give a name to your scheme"
+                          type="text"
+                          value={scheme.name}
+                          onChange={handleChangeName}
+                        />
                     </p>
                     <p>
-                        Last changed: {new Date(activeScheme.lastChange).toLocaleTimeString("en-US")}
+                        Last changed: {new Date(scheme.lastChange).toLocaleTimeString("en-US")}
                     </p>
                   </div>
                   <div className="workspace__content">
@@ -67,7 +88,7 @@ function JsonSchemaValidator() {
                     <form>
                       <CodeEditor
                         language="json"
-                        value={schema}
+                        value={schemaContent}
                         placeholder="Input your schema here"
                         onChange={handleSchemaChange}
                         padding={15}
@@ -113,4 +134,4 @@ function JsonSchemaValidator() {
     );
 }
 
-export default JsonSchemaValidator;
+export default Workspace;
