@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useAppDispatch} from "../Hooks/redux";
 import {openModal} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
+import axios from "axios";
 
 interface IPostData {
     name: string,
@@ -22,11 +23,17 @@ const SignInForm = () => {
 
     async function fetchRegister () {
         try {
+            if (name === "" || email === "" || password === "") return
+
             const postData: IPostData = {
                 name: name,
                 email: email,
                 password: password
             }
+
+            const response = await axios.post("http://localhost:3080/api/user", {...postData})
+
+            console.log(response)
         } catch (e) {
             console.log(e)
         }
@@ -40,7 +47,7 @@ const SignInForm = () => {
             <input type="email" className="input" id="email" onChange={(e) => setEmail(e.target.value)}  />
             <label htmlFor="password" className="input-label">Password</label>
             <input type="password" className="input" id="password" onChange={(e) => setPassword(e.target.value)}  />
-            <button className="button">Sign Up</button>
+            <button className="button" onClick={fetchRegister}>Sign Up</button>
             <p>Already have an account? <span className="link" onClick={handleLoginClick}>Log in here</span></p>
         </>
     );

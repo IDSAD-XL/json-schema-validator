@@ -1,6 +1,7 @@
 const db = require('../_helpers/db')
 const { errorTypes } = require("../_helpers/errorTypes");
-const jwt = require("../_helpers/jwt");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
 
 const User = db.User
 

@@ -1,6 +1,7 @@
 require('dotenv').config();
 const fs = require('fs')
 require('rootpath')()
+const cors = require("cors");
 
 const path = require('path')
 const express = require('express')
@@ -13,6 +14,8 @@ const app = express()
 
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
+
+app.use(cors());
 
 app.use(jwt())
 
