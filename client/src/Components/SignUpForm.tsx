@@ -4,7 +4,8 @@ import {openModal} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
 import axios from "axios";
 import {userSlice} from "../Redux/Reducers/UserSlice";
-import {IUser} from "../Models/IUser";
+import {alertsSlice} from "../Redux/Reducers/AlertsSlice";
+import {AlertTypes} from "../Models/IAlert";
 
 interface IPostData {
     name: string,
@@ -46,6 +47,16 @@ const SignInForm = () => {
                 }))
 
                 dispatch(userSlice.actions.userSetToken(payload.token))
+
+                dispatch(alertsSlice.actions.pushAlert({
+                    type: AlertTypes.success,
+                    text: `Successfully registered!`
+                }))
+            } else {
+                dispatch(alertsSlice.actions.pushAlert({
+                    type: AlertTypes.error,
+                    text: `Something went wrong`
+                }))
             }
         } catch (e) {
             console.log(e)

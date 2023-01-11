@@ -13,11 +13,11 @@ export const alertsSlice = createSlice({
     name: 'alerts',
     initialState,
     reducers: {
-        addSchema(state, action: PayloadAction<IAlert>) {
+        pushAlert(state, action: PayloadAction<IAlert>) {
             state.alerts.push(action.payload)
             setTimeout(() => {
                 state.alerts.shift()
-            }, 4000)
+            }, 8000)
         },
     }
 })
