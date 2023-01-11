@@ -8,11 +8,13 @@ import Header from "./Components/Header";
 const App = () => {
     return (
         <>
-            <Header />
-            <Sidebar />
-            <Workspace />
             <Alert />
             <ModalComponent />
+            <Header />
+            <div className="app-space">
+                <Sidebar />
+                <Workspace />
+            </div>
         </>
     );
 };

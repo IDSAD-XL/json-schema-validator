@@ -1,0 +1,26 @@
+.sidebar {
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.25);
+
+  &-header {
+    padding: 20px;
+  }
+
+  &-saved-schemes {
+    background: #F8F8F8;
+    
+    &__header {
+      background: #F2F2F2;
+      font-size: 24px;
+      line-height: 31px;
+      padding: 20px 8px;
+    }
+
+    &__items {
+      background: #F8F8F8;
+    }
+  }
+}
