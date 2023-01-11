@@ -64,10 +64,6 @@ export const setSchemeIntoWorkspace = (scheme: string) => async (dispatch: AppDi
     dispatch(workspaceSlice.actions.setSchema(scheme))
 }
 
-export const changeSchemeName = (scheme: IRenameScheme) => async (dispatch: AppDispatch) => {
-    dispatch(schemesSlice.actions.changeSchemeName(scheme))
-}
-
 export const saveSchema = (scheme: ISchema) => async (dispatch: AppDispatch) => {
     dispatch(schemesSlice.actions.updateSchema(scheme))
 }

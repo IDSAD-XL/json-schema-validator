@@ -27,20 +27,11 @@ export const schemesSlice = createSlice({
         setSchemes(state, action: PayloadAction<ISchema[]>) {
             state.schemes = action.payload
         },
-        changeSchemeName(state, action: PayloadAction<IRenameScheme>) {
-            const findScheme = state.schemes.find((entry) => entry.id === action.payload.id)
-            if (findScheme) {
-                findScheme.name = action.payload.name
-            }
-        },
         updateSchema(state, action: PayloadAction<ISchema>) {
-            state.schemes.map((entry) => {
-                if (entry.id === action.payload.id) {
-                    return action.payload
-                } else {
-                    return entry
-                }
-            })
+            const findSchemeIndex = state.schemes.findIndex((entry) => entry.id === action.payload.id)
+            if (findSchemeIndex !== -1) {
+                state.schemes[findSchemeIndex] = action.payload
+            }
         }
     }
 })

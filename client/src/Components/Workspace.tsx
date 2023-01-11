@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import ajv from 'ajv';
 import {useAppDispatch, useAppSelector} from "../Hooks/redux";
-import {changeSchemeName, saveSchema} from "../Redux/ActionCreators";
+import {saveSchema} from "../Redux/ActionCreators";
 import {ISchema} from "../Models/ISchema";
 
 const schemaValidator = new ajv();
@@ -28,11 +28,6 @@ function Workspace() {
 
     const saveScheme = () => {
         dispatch(saveSchema(scheme))
-    }
-
-    const handleChangeName = (e: React.FormEvent<HTMLInputElement>) => {
-        if (!activeScheme) return
-        dispatch(changeSchemeName({id: activeScheme, name: e.currentTarget.value}))
     }
 
     const handleSchemaChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
