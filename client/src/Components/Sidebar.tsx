@@ -1,15 +1,19 @@
 import React from 'react';
-import {useAppSelector} from "../Hooks/redux";
+import {useAppDispatch, useAppSelector} from "../Hooks/redux";
+import {createNewScheme} from "../Redux/ActionCreators";
 
 const Sidebar = () => {
     const { schemes } = useAppSelector(state => state.schemesReducer)
+    const dispatch = useAppDispatch()
 
-    
+    const handleCreateNewSchemeButtonClick = () => {
+        dispatch(createNewScheme())
+    }
 
     return (
         <div className="sidebar">
             <div className="sidebar-header">
-                <button className="button">
+                <button className="button" onClick={handleCreateNewSchemeButtonClick}>
                     Create New Scheme
                 </button>
             </div>

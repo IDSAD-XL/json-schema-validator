@@ -7,6 +7,9 @@
 
   &-header {
     padding: 20px;
+    height: 90px;
+    display: flex;
+    align-items: center;
   }
 
   &-saved-schemes {
@@ -17,7 +20,6 @@
       font-size: 24px;
       line-height: 31px;
       padding: 8px 20px;
-      height: 90px;
     }
 
     &__items {

@@ -55,9 +55,14 @@ function JsonSchemaValidator() {
             {activeScheme &&
                 <div className="workspace">
                   <div className="workspace__header">
-
+                    <p>
+                        <input className="input-transparent" placeholder="Give a name to your scheme" type="text" value={activeScheme.name} />
+                    </p>
+                    <p>
+                        Last changed: {new Date(activeScheme.lastChange).toLocaleTimeString("en-US")}
+                    </p>
                   </div>
-                  <div>
+                  <div className="workspace__content">
                     <h2>JSON Schema</h2>
                     <form>
                       <CodeEditor
@@ -80,8 +85,6 @@ function JsonSchemaValidator() {
                               ))}
                           </ul>
                       )}
-                  </div>
-                  <div>
                     <h2>JSON</h2>
                     <CodeEditor
                       language="json"
@@ -102,8 +105,8 @@ function JsonSchemaValidator() {
                               ))}
                           </ul>
                       )}
+                    <button className="button" onClick={validate}>Validate</button>
                   </div>
-                  <button onClick={validate}>Validate</button>
                 </div>
             }
         </div>

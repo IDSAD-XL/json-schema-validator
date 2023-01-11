@@ -3,8 +3,11 @@ import axios from "axios";
 import {IUser} from "../Models/IUser";
 import {userSlice} from "./Reducers/UserSlice";
 import {modalSlice, modalTypes} from "./Reducers/ModalSlice";
-import {IAlert} from "../Models/IAlert";
+import {AlertTypes, IAlert} from "../Models/IAlert";
 import {alertsSlice} from "./Reducers/AlertsSlice";
+import {ISchema} from "../Models/ISchema";
+import {schemesSlice} from "./Reducers/SchemaSlice";
+import {workspaceSlice} from "./Reducers/WorkspaceSlice";
 
 export const fetchData = () => async (dispatch: AppDispatch) => {
     try {
@@ -37,4 +40,25 @@ export const pushAlert = (alert: IAlert) => async (dispatch: AppDispatch) => {
     setTimeout(() => {
         dispatch(alertsSlice.actions.shiftAlert())
     }, 8000)
+}
+
+export const createNewScheme = () => async (dispatch: AppDispatch) => {
+    const newScheme: ISchema = {
+        id: Math.floor(Math.random() * 5000000).toString(),
+        name: "",
+        lastChange: Date.now(),
+        content: JSON.parse("{}")
+    }
+
+    dispatch(schemesSlice.actions.addSchema(newScheme))
+    dispatch(setSchemeIntoWorkspace(newScheme))
+
+    dispatch(pushAlert({
+        type: AlertTypes.success,
+        text: "Created new scheme"
+    }))
+}
+
+export const setSchemeIntoWorkspace = (scheme: ISchema) => async (dispatch: AppDispatch) => {
+    dispatch(workspaceSlice.actions.setSchema(scheme))
 }
