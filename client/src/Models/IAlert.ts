@@ -1,7 +1,8 @@
 export enum AlertTypes {
     info,
     warning,
-    error
+    error,
+    success
 }
 
 export interface IAlert {

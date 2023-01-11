@@ -11,7 +11,8 @@ const Header = () => {
     }
 
     return (
-        <div>
+        <div className="header">
+            <span className="header-title">Json Schema Tool</span>
             <button className="button" onClick={handleLoginButtonClick}>Log in</button>
         </div>
     );

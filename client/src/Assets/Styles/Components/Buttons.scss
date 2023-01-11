@@ -9,6 +9,7 @@
   cursor: pointer;
   transition: all .4s ease;
   transform: scale(1);
+  height: min-content;
 
   &:hover {
     background-color: #ffef8b;

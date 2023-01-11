@@ -3,6 +3,13 @@
   width: 100%;
   display: flex;
   justify-content: space-between;
-  padding: 20px 0;
+  align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
   background-color: #FBEB5A;
+
+  &-title {
+    font-size: 24px;
+    line-height: 31px;
+  }
 }
