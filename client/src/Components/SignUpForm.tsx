@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from "../Hooks/redux";
-import {openModal, pushAlert} from "../Redux/ActionCreators";
+import {closeModal, openModal, pushAlert} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
 import axios, {AxiosResponse} from "axios";
 import {userSlice} from "../Redux/Reducers/UserSlice";
@@ -51,6 +51,8 @@ const SignInForm = () => {
                     type: AlertTypes.success,
                     text: `Successfully registered!`
                 }))
+
+                dispatch(closeModal())
             } else {
                 dispatch(pushAlert({
                     type: AlertTypes.error,

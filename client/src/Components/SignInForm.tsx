@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from "../Hooks/redux";
-import {openModal} from "../Redux/ActionCreators";
+import {closeModal, openModal, pushAlert} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
 import axios from "axios";
 import {userSlice} from "../Redux/Reducers/UserSlice";
+import {AlertTypes} from "../Models/IAlert";
 
 interface IPostData {
     email: string,
@@ -31,7 +32,7 @@ const SignInForm = () => {
 
             const response = await axios.post("http://localhost:3080/api/user/login", {...postData})
 
-            if (response.status === 200) {
+            if (response.status === 200 && !response.data?.error) {
                 const payload = response.data
 
                 dispatch(userSlice.actions.userSetData({
@@ -42,6 +43,18 @@ const SignInForm = () => {
                 }))
 
                 dispatch(userSlice.actions.userSetToken(payload.token))
+
+                dispatch(pushAlert({
+                    type: AlertTypes.success,
+                    text: `Welcome, ${payload.name}`
+                }))
+
+                dispatch(closeModal())
+            } else {
+                dispatch(pushAlert({
+                    type: AlertTypes.error,
+                    text: response.data.error
+                }))
             }
         } catch (e) {
             console.log(e)

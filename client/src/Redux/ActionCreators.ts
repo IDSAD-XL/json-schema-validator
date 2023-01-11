@@ -19,6 +19,10 @@ export const setUser = (payload: IUser) => async (dispatch: AppDispatch) => {
     dispatch(userSlice.actions.userSetData(payload))
 }
 
+export const logout = () => async (dispatch: AppDispatch) => {
+    dispatch(userSlice.actions.logout())
+}
+
 export const openModal = (modalType: modalTypes) => async (dispatch: AppDispatch) => {
     dispatch(modalSlice.actions.setComponent(modalType))
     dispatch(modalSlice.actions.openModal())

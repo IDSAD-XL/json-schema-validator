@@ -20,6 +20,10 @@ export const userSlice = createSlice({
         userSetData(state, action: PayloadAction<IUser>) {
             state.user = action.payload
         },
+        logout(state) {
+            state.user = null
+            state.token = null
+        },
         userFetchError(state, action: PayloadAction<string>) {
             state.error = action.payload
         },
