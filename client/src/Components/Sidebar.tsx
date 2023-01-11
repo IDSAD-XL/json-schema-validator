@@ -1,6 +1,6 @@
 import React from 'react';
 import {useAppDispatch, useAppSelector} from "../Hooks/redux";
-import {createNewScheme} from "../Redux/ActionCreators";
+import {createNewScheme, setSchemeIntoWorkspace} from "../Redux/ActionCreators";
 
 const Sidebar = () => {
     const { schemes } = useAppSelector(state => state.schemesReducer)
@@ -8,6 +8,10 @@ const Sidebar = () => {
 
     const handleCreateNewSchemeButtonClick = () => {
         dispatch(createNewScheme())
+    }
+
+    const handleSchemeClick = (id: string) => {
+        dispatch(setSchemeIntoWorkspace(id))
     }
 
     return (
@@ -28,8 +32,11 @@ const Sidebar = () => {
                 }
                 {schemes.length > 0 &&
                     schemes.map((item) =>
-                        <div key={item.id} className="sidebar-saved-schemes__item">
-                            ${item.name}
+                        <div
+                            key={item.id} className="sidebar-saved-schemes__item"
+                            onClick={(e) => handleSchemeClick(item.id)}
+                        >
+                            {item.name}
                         </div>
                     )
                 }

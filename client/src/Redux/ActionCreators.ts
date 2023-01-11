@@ -47,7 +47,7 @@ export const createNewScheme = () => async (dispatch: AppDispatch, getState) => 
         id: Math.floor(Math.random() * 5000000).toString(),
         name: "",
         lastChange: Date.now(),
-        content: JSON.parse("{}")
+        content: ""
     }
 
     dispatch(schemesSlice.actions.addSchema(newScheme))

@@ -59,6 +59,8 @@ function Workspace() {
         const findScheme = schemes.find((entry) => entry.id === activeScheme)
         if (findScheme) {
             setScheme(findScheme)
+            setName(findScheme.name)
+            setSchemaContent(findScheme.content)
         }
     }, [activeScheme])
 
