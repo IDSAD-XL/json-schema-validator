@@ -1,10 +1,9 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from "../Hooks/redux";
-import {openModal} from "../Redux/ActionCreators";
+import {openModal, pushAlert} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 import {userSlice} from "../Redux/Reducers/UserSlice";
-import {alertsSlice} from "../Redux/Reducers/AlertsSlice";
 import {AlertTypes} from "../Models/IAlert";
 
 interface IPostData {
@@ -36,7 +35,7 @@ const SignInForm = () => {
 
             const response = await axios.post("http://localhost:3080/api/user/register", {...postData})
 
-            if (response.status === 200) {
+            if (response.status === 200 && !response.data?.error) {
                 const payload = response.data
 
                 dispatch(userSlice.actions.userSetData({
@@ -48,14 +47,14 @@ const SignInForm = () => {
 
                 dispatch(userSlice.actions.userSetToken(payload.token))
 
-                dispatch(alertsSlice.actions.pushAlert({
+                dispatch(pushAlert({
                     type: AlertTypes.success,
                     text: `Successfully registered!`
                 }))
             } else {
-                dispatch(alertsSlice.actions.pushAlert({
+                dispatch(pushAlert({
                     type: AlertTypes.error,
-                    text: `Something went wrong`
+                    text: response.data.error
                 }))
             }
         } catch (e) {

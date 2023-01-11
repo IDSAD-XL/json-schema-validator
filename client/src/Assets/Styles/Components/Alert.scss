@@ -16,6 +16,9 @@
   align-items: center;
   opacity: 1;
   animation: fade-out 8s linear;
+  padding: 10px;
+  box-sizing: border-box;
+  border-radius: 4px;
 
   &-wrapper {
     position: fixed;
@@ -40,6 +43,6 @@
   }
   
   &-success {
-    background-color: #71ff54;
+    background-color: #8dff76;
   }
 }

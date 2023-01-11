@@ -14,8 +14,8 @@ const ErrorAlert = () => {
 
     return (
         <div className="alert-wrapper">
-            {alerts.map((item) =>
-                <div className={`alert ${getClassName(item.type)}`}>
+            {alerts.map((item, index) =>
+                <div key={index} className={`alert ${getClassName(item.type)}`}>
                     {item.text}
                 </div>
             )}

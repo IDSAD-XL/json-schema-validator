@@ -3,6 +3,8 @@ import axios from "axios";
 import {IUser} from "../Models/IUser";
 import {userSlice} from "./Reducers/UserSlice";
 import {modalSlice, modalTypes} from "./Reducers/ModalSlice";
+import {IAlert} from "../Models/IAlert";
+import {alertsSlice} from "./Reducers/AlertsSlice";
 
 export const fetchData = () => async (dispatch: AppDispatch) => {
     try {
@@ -24,4 +26,11 @@ export const openModal = (modalType: modalTypes) => async (dispatch: AppDispatch
 
 export const closeModal = () => async (dispatch: AppDispatch) => {
     dispatch(modalSlice.actions.closeModal())
+}
+
+export const pushAlert = (alert: IAlert) => async (dispatch: AppDispatch) => {
+    dispatch(alertsSlice.actions.pushAlert(alert))
+    setTimeout(() => {
+        dispatch(alertsSlice.actions.shiftAlert())
+    }, 8000)
 }
