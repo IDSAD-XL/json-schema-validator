@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import CodeEditor from '@uiw/react-textarea-code-editor';
 import ajv from 'ajv';
+import {useAppSelector} from "../Hooks/redux";
 
 const schemaValidator = new ajv();
 
@@ -10,6 +11,8 @@ interface ValidationError {
 }
 
 function JsonSchemaValidator() {
+    const { activeScheme } = useAppSelector(state => state.workspaceSlice)
+
     const [schema, setSchema] = useState('');
     const [json, setJson] = useState('');
     const [schemaErrors, setSchemaErrors] = useState<ValidationError[]>([]);
@@ -42,15 +45,22 @@ function JsonSchemaValidator() {
         }
     };
 
-    return (
-        <div className="workspace">
-            <div className="workspace__header">
+    useEffect(() => {
 
-            </div>
-            <div>
-                <h2>JSON Schema</h2>
-                <form>
-                    <CodeEditor
+    })
+
+    return (
+        <>
+            {!activeScheme && <h4>Create or open saved scheme</h4>}
+            {activeScheme &&
+                <div className="workspace">
+                  <div className="workspace__header">
+
+                  </div>
+                  <div>
+                    <h2>JSON Schema</h2>
+                    <form>
+                      <CodeEditor
                         language="json"
                         value={schema}
                         placeholder="Input your schema here"
@@ -61,40 +71,42 @@ function JsonSchemaValidator() {
                             backgroundColor: "#f5f5f5",
                             fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
                         }}
+                      />
+                    </form>
+                      {schemaErrors.length > 0 && (
+                          <ul>
+                              {schemaErrors.map((error) => (
+                                  <li key={error.dataPath}>{error.message}</li>
+                              ))}
+                          </ul>
+                      )}
+                  </div>
+                  <div>
+                    <h2>JSON</h2>
+                    <CodeEditor
+                      language="json"
+                      value={json}
+                      placeholder="Input your object here"
+                      onChange={handleJsonChange}
+                      padding={15}
+                      style={{
+                          fontSize: 15,
+                          backgroundColor: "#f5f5f5",
+                          fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+                      }}
                     />
-                </form>
-                {schemaErrors.length > 0 && (
-                    <ul>
-                        {schemaErrors.map((error) => (
-                            <li key={error.dataPath}>{error.message}</li>
-                        ))}
-                    </ul>
-                )}
-            </div>
-            <div>
-                <h2>JSON</h2>
-                <CodeEditor
-                    language="json"
-                    value={json}
-                    placeholder="Input your object here"
-                    onChange={handleJsonChange}
-                    padding={15}
-                    style={{
-                        fontSize: 15,
-                        backgroundColor: "#f5f5f5",
-                        fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-                    }}
-                />
-                {jsonErrors.length > 0 && (
-                    <ul>
-                        {jsonErrors.map((error) => (
-                            <li key={error.dataPath}>{error.message}</li>
-                        ))}
-                    </ul>
-                )}
-            </div>
-            <button onClick={validate}>Validate</button>
-        </div>
+                      {jsonErrors.length > 0 && (
+                          <ul>
+                              {jsonErrors.map((error) => (
+                                  <li key={error.dataPath}>{error.message}</li>
+                              ))}
+                          </ul>
+                      )}
+                  </div>
+                  <button onClick={validate}>Validate</button>
+                </div>
+            }
+        </>
     );
 }
 
