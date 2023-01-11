@@ -50,7 +50,7 @@ function JsonSchemaValidator() {
     })
 
     return (
-        <>
+        <div className="workspace-wrapper">
             {!activeScheme && <h4>Create or open saved scheme</h4>}
             {activeScheme &&
                 <div className="workspace">
@@ -106,7 +106,7 @@ function JsonSchemaValidator() {
                   <button onClick={validate}>Validate</button>
                 </div>
             }
-        </>
+        </div>
     );
 }
 
