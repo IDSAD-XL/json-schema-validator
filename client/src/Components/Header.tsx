@@ -19,7 +19,8 @@ const Header = () => {
     return (
         <div className="header">
             <span className="header-title">Json Schema Tool</span>
-            <div>
+            <div className="header__buttons">
+                {user?.name}
                 {user === null && <button className="button" onClick={handleLoginButtonClick}>Log in</button>}
                 {user !== null && <button className="button" onClick={handleLogoutButtonClick}>Log out</button>}
             </div>

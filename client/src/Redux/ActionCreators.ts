@@ -17,10 +17,11 @@ const tokenConfig = (token: string) => {
     }
 }
 
-export const fetchData = () => async (dispatch: AppDispatch) => {
+export const fetchData = () => async (dispatch: AppDispatch, getState) => {
     try {
-        const response = await axios.get<IUser>('http://localhost:3080/api/user')
+        const response = await axios.get<IUser>('http://localhost:3080/api/user', tokenConfig(getState().userSlice.token))
         dispatch(userSlice.actions.userSetData(response.data))
+        dispatch(schemesSlice.actions.setSchemes(response.data.schemes))
     } catch (e) {
         dispatch(userSlice.actions.userFetchError((e as Error).message))
     }
@@ -56,7 +57,9 @@ export const setToken = (token?: string) => async (dispatch: AppDispatch) => {
     } else {
         const LStoken = localStorage.getItem("token")
         if (LStoken) {
-            dispatch(userSlice.actions.userSetToken(LStoken))
+            const parsedToken = JSON.parse(LStoken)
+            dispatch(userSlice.actions.userSetToken(parsedToken))
+            dispatch(fetchData())
         }
     }
 

@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from "../Hooks/redux";
-import {closeModal, openModal, pushAlert} from "../Redux/ActionCreators";
+import {closeModal, openModal, pushAlert, setToken} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
 import axios from "axios";
 import {userSlice} from "../Redux/Reducers/UserSlice";
@@ -42,7 +42,7 @@ const SignInForm = () => {
                     schemes: payload.schemes
                 }))
 
-                dispatch(userSlice.actions.userSetToken(payload.token))
+                dispatch(setToken(payload.token))
 
                 dispatch(pushAlert({
                     type: AlertTypes.success,
