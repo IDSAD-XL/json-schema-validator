@@ -137,7 +137,7 @@ function Workspace() {
                               ))}
                           </ul>
                       )}
-                    <div>
+                    <div className="workspace__buttons">
                       <button className="button" onClick={validate}>Validate</button>
                       <button className="button" onClick={saveScheme}>Save</button>
                     </div>

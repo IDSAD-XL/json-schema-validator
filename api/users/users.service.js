@@ -40,6 +40,14 @@ async function authenticate({ email, username, password }) {
   }
 }
 
+async function saveSchemes(userId, schemes) {
+  const user = User.findById(userId)
+
+  if (!user) return { error: "User not found" }
+
+  user.schemes = schemes
+}
+
 module.exports = {
   create,
   authenticate
