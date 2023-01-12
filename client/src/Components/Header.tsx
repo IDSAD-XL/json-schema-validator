@@ -20,7 +20,7 @@ const Header = () => {
         <div className="header">
             <span className="header-title">Json Schema Tool</span>
             <div className="header__buttons">
-                {user?.name}
+                {user?.name && "Signed in as: " + user.name}
                 {user === null && <button className="button" onClick={handleLoginButtonClick}>Log in</button>}
                 {user !== null && <button className="button" onClick={handleLogoutButtonClick}>Log out</button>}
             </div>

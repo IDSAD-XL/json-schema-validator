@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from "../Hooks/redux";
-import {closeModal, openModal, pushAlert, setToken} from "../Redux/ActionCreators";
+import {closeModal, openModal, pushAlert, setToken, setUser} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
 import axios from "axios";
 import {userSlice} from "../Redux/Reducers/UserSlice";
@@ -35,7 +35,7 @@ const SignInForm = () => {
             if (response.status === 200 && !response.data?.error) {
                 const payload = response.data
 
-                dispatch(userSlice.actions.userSetData({
+                dispatch(setUser({
                     name: payload.name,
                     id: payload.id,
                     email: payload.email,

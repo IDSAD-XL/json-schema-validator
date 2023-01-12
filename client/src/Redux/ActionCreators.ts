@@ -20,8 +20,8 @@ const tokenConfig = (token: string) => {
 export const fetchData = () => async (dispatch: AppDispatch, getState) => {
     try {
         const response = await axios.get<IUser>('http://localhost:3080/api/user', tokenConfig(getState().userSlice.token))
-        dispatch(userSlice.actions.userSetData(response.data))
-        dispatch(schemesSlice.actions.setSchemes(response.data.schemes))
+        dispatch(setUser(response.data))
+
     } catch (e) {
         dispatch(userSlice.actions.userFetchError((e as Error).message))
     }
@@ -48,6 +48,7 @@ export const postSchemes = () => async (dispatch: AppDispatch, getState) => {
 
 export const setUser = (payload: IUser) => async (dispatch: AppDispatch) => {
     dispatch(userSlice.actions.userSetData(payload))
+    dispatch(schemesSlice.actions.setSchemes(payload.schemes))
 }
 
 export const setToken = (token?: string) => async (dispatch: AppDispatch) => {
