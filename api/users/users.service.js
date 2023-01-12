@@ -48,7 +48,22 @@ async function saveSchemes(userId, schemes) {
   user.schemes = schemes
 }
 
+async function getSchemes(userId) {
+  const user = User.findById(userId)
+
+  if (!user) return { error: "User not found" }
+
+  const schemes = user?.schemes
+
+  if (schemes) {
+    return schemes.toJSON()
+  }
+}
+
+
 module.exports = {
   create,
-  authenticate
+  authenticate,
+  saveSchemes,
+  getSchemes
 }

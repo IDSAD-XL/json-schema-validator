@@ -2,9 +2,12 @@ const express = require('express')
 
 const router = express.Router()
 const userService = require("./users.service");
+const { saveSchemes } = require("./users.service");
 
 router.post('/register', register)
 router.post('/login', authenticate)
+router.post('/schemes', postSchemes)
+router.get('/schemes', getSchemes)
 
 function register(req, res, next) {
   userService
@@ -20,6 +23,18 @@ function authenticate(req, res, next) {
     .catch((err) => next(err));
 }
 
+function postSchemes(req, res, next) {
+  userService
+    .saveSchemes(req.sub.id, req.body)
+    .then((user) => res.json(user))
+    .catch((err) => next(err));
+}
 
+function getSchemes(req, res, next) {
+  userService
+    .getSchemes(req.sub.id)
+    .then((user) => res.json(user))
+    .catch((err) => next(err));
+}
 
 module.exports = router
