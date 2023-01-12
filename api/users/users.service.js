@@ -60,10 +60,16 @@ async function getSchemes(userId) {
   }
 }
 
+async function getById(id) {
+  const user = await User.findById(id)
+
+  return user.toJSON()
+}
 
 module.exports = {
   create,
   authenticate,
   saveSchemes,
-  getSchemes
+  getSchemes,
+  getById
 }

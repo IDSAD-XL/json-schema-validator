@@ -1,4 +1,5 @@
 const expressJwt = require('express-jwt')
+const userService = require("../users/users.service");
 
 function jwt() {
   const secret = process.env.JWT_SECRET
@@ -11,20 +12,14 @@ function jwt() {
   })
 }
 
-async function isRevoked(req, payload, done) {
+async function isRevoked(req, payload) {
   try {
-    //TODO: find user in user DB with UserService
-    const user = {
-      id: 1,
-      name: 'name'
-    }
+    const user = await userService.getById(payload.payload.sub)
 
-    if (!user) {
-      return done(null, true)
-    }
-
+    return !user;
   } catch (err) {
-    done(err)
+    console.log(err)
+    return true
   }
 }
 

@@ -24,14 +24,14 @@ function authenticate(req, res, next) {
 
 function postSchemes(req, res, next) {
   userService
-    .saveSchemes(req.sub.id, req.body)
+    .saveSchemes(req.user.sub, req.body)
     .then((user) => res.json(user))
     .catch((err) => next(err));
 }
 
 function getSchemes(req, res, next) {
   userService
-    .getSchemes(req.sub.id)
+    .getSchemes(req.auth.sub)
     .then((user) => res.json(user))
     .catch((err) => next(err));
 }
