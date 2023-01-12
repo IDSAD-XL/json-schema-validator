@@ -64,6 +64,11 @@ export const setToken = (token?: string) => async (dispatch: AppDispatch) => {
 
 export const logout = () => async (dispatch: AppDispatch) => {
     dispatch(userSlice.actions.logout())
+    dispatch(schemesSlice.actions.setSchemes([]))
+    pushAlert({
+        type: AlertTypes.warning,
+        text: "You logged out, to see your saved schemes log in your account"
+    })
 }
 
 export const openModal = (modalType: modalTypes) => async (dispatch: AppDispatch) => {
@@ -111,4 +116,8 @@ export const setSchemeIntoWorkspace = (scheme: string) => async (dispatch: AppDi
 export const saveSchema = (scheme: ISchema) => async (dispatch: AppDispatch) => {
     dispatch(schemesSlice.actions.updateSchema(scheme))
     dispatch(postSchemes())
+    dispatch(pushAlert({
+        type: AlertTypes.success,
+        text: "Scheme saved"
+    }))
 }
