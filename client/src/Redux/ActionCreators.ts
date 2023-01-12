@@ -39,8 +39,7 @@ export const getSchemes = () => async (dispatch: AppDispatch, getState) => {
 export const postSchemes = () => async (dispatch: AppDispatch, getState) => {
     try {
         const schemes = getState().schemesReducer.schemes
-        const response = await axios.post<ISchema[]>('http://localhost:3080/api/user/schemes', schemes, tokenConfig(getState().userSlice.token))
-        dispatch(schemesSlice.actions.setSchemes(response.data))
+        await axios.post<ISchema[]>('http://localhost:3080/api/user/schemes', schemes, tokenConfig(getState().userSlice.token))
     } catch (e) {
         console.log(e)
     }
@@ -84,7 +83,6 @@ export const pushAlert = (alert: IAlert) => async (dispatch: AppDispatch) => {
 }
 
 export const createNewScheme = () => async (dispatch: AppDispatch, getState) => {
-    console.log(getState())
     const newScheme: ISchema = {
         id: Math.floor(Math.random() * 5000000).toString(),
         name: "",
@@ -101,7 +99,9 @@ export const createNewScheme = () => async (dispatch: AppDispatch, getState) => 
         text: "Created new scheme"
     }))
 
-    dispatch(postSchemes())
+    if (getState().userSlice.user) {
+        dispatch(postSchemes())
+    }
 }
 
 export const setSchemeIntoWorkspace = (scheme: string) => async (dispatch: AppDispatch) => {
@@ -110,4 +110,5 @@ export const setSchemeIntoWorkspace = (scheme: string) => async (dispatch: AppDi
 
 export const saveSchema = (scheme: ISchema) => async (dispatch: AppDispatch) => {
     dispatch(schemesSlice.actions.updateSchema(scheme))
+    dispatch(postSchemes())
 }

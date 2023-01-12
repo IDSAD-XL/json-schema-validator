@@ -36,7 +36,7 @@ const Sidebar = () => {
                             key={item.id} className="sidebar-saved-schemes__item"
                             onClick={(e) => handleSchemeClick(item.id)}
                         >
-                            {item.name}
+                            {item.name || "New Scheme"}
                         </div>
                     )
                 }
