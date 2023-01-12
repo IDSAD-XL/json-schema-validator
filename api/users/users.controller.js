@@ -2,7 +2,6 @@ const express = require('express')
 
 const router = express.Router()
 const userService = require("./users.service");
-const { saveSchemes } = require("./users.service");
 
 router.post('/register', register)
 router.post('/login', authenticate)

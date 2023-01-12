@@ -6,8 +6,16 @@ import {modalSlice, modalTypes} from "./Reducers/ModalSlice";
 import {AlertTypes, IAlert} from "../Models/IAlert";
 import {alertsSlice} from "./Reducers/AlertsSlice";
 import {ISchema} from "../Models/ISchema";
-import {IRenameScheme, schemesSlice} from "./Reducers/SchemaSlice";
+import {schemesSlice} from "./Reducers/SchemaSlice";
 import {workspaceSlice} from "./Reducers/WorkspaceSlice";
+
+const tokenConfig = (token: string) => {
+    return {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+}
 
 export const fetchData = () => async (dispatch: AppDispatch) => {
     try {
@@ -15,6 +23,25 @@ export const fetchData = () => async (dispatch: AppDispatch) => {
         dispatch(userSlice.actions.userSetData(response.data))
     } catch (e) {
         dispatch(userSlice.actions.userFetchError((e as Error).message))
+    }
+}
+
+export const getSchemes = () => async (dispatch: AppDispatch, getState) => {
+    try {
+        const response = await axios.get<ISchema[]>('http://localhost:3080/api/user/schemes', tokenConfig(getState().userSlice.token))
+        dispatch(schemesSlice.actions.setSchemes(response.data))
+    } catch (e) {
+        console.log(e)
+    }
+}
+
+export const postSchemes = () => async (dispatch: AppDispatch, getState) => {
+    try {
+        const schemes = getState().schemesReducer.schemes
+        const response = await axios.post<ISchema[]>('http://localhost:3080/api/user/schemes', schemes, tokenConfig(getState().userSlice.token))
+        dispatch(schemesSlice.actions.setSchemes(response.data))
+    } catch (e) {
+        console.log(e)
     }
 }
 
@@ -42,7 +69,7 @@ export const pushAlert = (alert: IAlert) => async (dispatch: AppDispatch) => {
     }, 8000)
 }
 
-export const createNewScheme = () => async (dispatch: AppDispatch, getState) => {
+export const createNewScheme = () => async (dispatch: AppDispatch) => {
     const newScheme: ISchema = {
         id: Math.floor(Math.random() * 5000000).toString(),
         name: "",
