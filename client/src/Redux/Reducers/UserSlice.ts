@@ -29,8 +29,6 @@ export const userSlice = createSlice({
         },
         userSetToken(state, action: PayloadAction<string>) {
             state.token = action.payload
-
-            localStorage.setItem('token', JSON.stringify(action.payload))
         }
     }
 })

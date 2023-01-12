@@ -49,6 +49,19 @@ export const setUser = (payload: IUser) => async (dispatch: AppDispatch) => {
     dispatch(userSlice.actions.userSetData(payload))
 }
 
+export const setToken = (token?: string) => async (dispatch: AppDispatch) => {
+    if (token) {
+        dispatch(userSlice.actions.userSetToken(token))
+        localStorage.setItem("token", JSON.stringify(token))
+    } else {
+        const LStoken = localStorage.getItem("token")
+        if (LStoken) {
+            dispatch(userSlice.actions.userSetToken(LStoken))
+        }
+    }
+
+}
+
 export const logout = () => async (dispatch: AppDispatch) => {
     dispatch(userSlice.actions.logout())
 }
@@ -69,7 +82,8 @@ export const pushAlert = (alert: IAlert) => async (dispatch: AppDispatch) => {
     }, 8000)
 }
 
-export const createNewScheme = () => async (dispatch: AppDispatch) => {
+export const createNewScheme = () => async (dispatch: AppDispatch, getState) => {
+    console.log(getState())
     const newScheme: ISchema = {
         id: Math.floor(Math.random() * 5000000).toString(),
         name: "",
@@ -85,6 +99,8 @@ export const createNewScheme = () => async (dispatch: AppDispatch) => {
         type: AlertTypes.success,
         text: "Created new scheme"
     }))
+
+    dispatch(postSchemes())
 }
 
 export const setSchemeIntoWorkspace = (scheme: string) => async (dispatch: AppDispatch) => {
