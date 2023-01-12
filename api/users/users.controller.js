@@ -24,7 +24,7 @@ function authenticate(req, res, next) {
 
 function postSchemes(req, res, next) {
   userService
-    .saveSchemes(req.user.sub, req.body)
+    .saveSchemes(req.auth.sub, req.body)
     .then((user) => res.json(user))
     .catch((err) => next(err));
 }

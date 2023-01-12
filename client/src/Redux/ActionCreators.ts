@@ -29,6 +29,7 @@ export const fetchData = () => async (dispatch: AppDispatch) => {
 export const getSchemes = () => async (dispatch: AppDispatch, getState) => {
     try {
         const response = await axios.get<ISchema[]>('http://localhost:3080/api/user/schemes', tokenConfig(getState().userSlice.token))
+        console.log(response.data)
         dispatch(schemesSlice.actions.setSchemes(response.data))
     } catch (e) {
         console.log(e)

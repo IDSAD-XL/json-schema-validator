@@ -41,22 +41,28 @@ async function authenticate({ email, username, password }) {
 }
 
 async function saveSchemes(userId, schemes) {
-  const user = User.findById(userId)
+  const user = await User.findById(userId)
 
   if (!user) return { error: "User not found" }
 
+  console.log(schemes)
+
   user.schemes = schemes
+
+  await user.save()
 }
 
 async function getSchemes(userId) {
-  const user = User.findById(userId)
+  const user = await User.findById(userId)
 
   if (!user) return { error: "User not found" }
+
+  console.log('user', user)
 
   const schemes = user?.schemes
 
   if (schemes) {
-    return schemes.toJSON()
+    return schemes
   }
 }
 
