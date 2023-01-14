@@ -3,8 +3,8 @@ import {useAppDispatch} from "../Hooks/redux";
 import {closeModal, openModal, pushAlert, setToken, setUser} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
 import axios from "axios";
-import {userSlice} from "../Redux/Reducers/UserSlice";
-import {AlertTypes} from "../Models/IAlert";
+import {ErrorAlert} from "../Models/Alerts/ErrorAlert";
+import {SuccessAlert} from "../Models/Alerts/SuccessAlert";
 
 interface IPostData {
     email: string,
@@ -44,17 +44,14 @@ const SignInForm = () => {
 
                 dispatch(setToken(payload.token))
 
-                dispatch(pushAlert({
-                    type: AlertTypes.success,
-                    text: `Welcome, ${payload.name}`
-                }))
+                const successAlert = new SuccessAlert(`Welcome, ${payload.name}`)
+
+                dispatch(pushAlert(successAlert))
 
                 dispatch(closeModal())
             } else {
-                dispatch(pushAlert({
-                    type: AlertTypes.error,
-                    text: response.data.error
-                }))
+                const errorAlert = new ErrorAlert(response.data.error)
+                dispatch(pushAlert(errorAlert))
             }
         } catch (e) {
             console.log(e)

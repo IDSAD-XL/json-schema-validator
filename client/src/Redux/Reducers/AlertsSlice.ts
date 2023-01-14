@@ -1,5 +1,5 @@
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {IAlert} from "../../Models/IAlert";
+import {Alert, IAlert} from "../../Models/IAlert";
 
 interface AlertsState {
     alerts: Array<IAlert>

@@ -12,6 +12,8 @@ interface ValidationError {
     dataPath: string;
 }
 
+let validateAndSaveTimeoutHandler
+
 function Workspace() {
     const { activeScheme } = useAppSelector(state => state.workspaceSlice)
     const { schemes } = useAppSelector(state => state.schemesReducer)
@@ -19,12 +21,21 @@ function Workspace() {
     const dispatch = useAppDispatch()
 
     const [scheme, setScheme] = useState<ISchema>({id: '', name: '', content: "", lastChange: 1})
-    const [name, setName] = useState<string>('')
 
-    const [schemaContent, setSchemaContent] = useState('');
-    const [json, setJson] = useState('');
+    const [name, setName] = useState<string>('')
+    const [schemaContent, setSchemaContent] = useState<string>('');
+    const [json, setJson] = useState<string>('');
     const [schemaErrors, setSchemaErrors] = useState<ValidationError[]>([]);
     const [jsonErrors, setJsonErrors] = useState<ValidationError[]>([]);
+
+    const validateAndSave = () => {
+        clearTimeout(validateAndSaveTimeoutHandler)
+        validateAndSaveTimeoutHandler = setTimeout(() => {
+            console.log('timeout')
+            saveScheme()
+            validate()
+        }, 500)
+    }
 
     const saveScheme = () => {
         dispatch(saveSchema(scheme))
@@ -73,6 +84,10 @@ function Workspace() {
                 content: schemaContent
             }
         })
+    }, [name, schemaContent])
+
+    useEffect(() => {
+        validateAndSave()
     }, [name, schemaContent])
 
     return (
