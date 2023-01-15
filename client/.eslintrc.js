@@ -18,7 +18,7 @@ module.exports = {
   plugins: ['react', '@typescript-eslint', 'sonarjs'],
   ignorePatterns: [".eslintrc.js", "webpack.config.js", "/dist/"],
   rules: {
-    "no-case-declarations": "0"
+    "no-case-declarations": 0
   },
   settings: {
     react: {
