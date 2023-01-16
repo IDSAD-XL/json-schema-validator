@@ -1,8 +1,8 @@
 const path = require('path')
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: './src/index.tsx',
-  devtool: "eval-source-map",
+  devtool: 'eval-source-map',
   module: {
     rules: [
       {
@@ -14,9 +14,7 @@ module.exports = {
         test: /\.css$/,
         use: ['style-loader', 'css-loader'],
       },
-      { test: /\.scss$/, use: [
-          "style-loader","css-loader", "sass-loader"
-        ] },
+      { test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader'] },
     ],
   },
   resolve: {
@@ -28,6 +26,6 @@ module.exports = {
   },
   devServer: {
     contentBase: path.resolve(__dirname, 'dist'),
-    hot: true
+    hot: true,
   },
 }

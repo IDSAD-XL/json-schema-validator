@@ -16,13 +16,13 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint', 'sonarjs'],
-  ignorePatterns: [".eslintrc.js", "webpack.config.js", "/dist/"],
+  ignorePatterns: ['.eslintrc.js', 'webpack.config.js', '/dist/'],
   rules: {
-    "no-case-declarations": 0
+    'no-case-declarations': 0,
   },
   settings: {
     react: {
-      version: "detect", // React version. "detect" automatically picks the version you have installed.
+      version: 'detect', // React version. "detect" automatically picks the version you have installed.
     },
-  }
+  },
 }

@@ -29,7 +29,7 @@
     "eject": "react-scripts eject",
     "lint": "eslint --max-warnings=0 --ext .cjs --ext .jsx --ext .js --ext .ts . --ignore-path .gitignore --no-error-on-unmatched-pattern",
     "lint:fix": "eslint --ext .cjs --ext .jsx --ext .js --ext .ts . --ignore-path .gitignore --fix --no-error-on-unmatched-pattern",
-    "format": "prettier --ignore-path .gitignore -c \"**/*.js\" \"**/*.cjs\" \"**/*.jsx\" \"**/*.ts\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
+    "format": "prettier --ignore-path .gitignore -c \"**/*.tsx\" \"**/*.js\" \"**/*.cjs\" \"**/*.jsx\" \"**/*.ts\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
     "format:fix": "prettier --ignore-path .gitignore --write \"**/*.js\" \"**/*.cjs\" \"**/*.jsx\" \"**/*.ts\" \"**/*.json\" \"**/*.md\" \"**/*.yml\" --no-error-on-unmatched-pattern",
     "fix": "npm run lint:fix && npm run format:fix"
   },

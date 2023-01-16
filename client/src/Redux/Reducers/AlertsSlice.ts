@@ -1,25 +1,25 @@
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
-import {Alert, IAlert} from "../../Models/IAlert";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { IAlert } from '../../Models/IAlert'
 
 interface AlertsState {
-    alerts: Array<IAlert>
+  alerts: Array<IAlert>
 }
 
 const initialState: AlertsState = {
-    alerts: []
+  alerts: [],
 }
 
 export const alertsSlice = createSlice({
-    name: 'alerts',
-    initialState,
-    reducers: {
-        pushAlert(state, action: PayloadAction<IAlert>) {
-            state.alerts.unshift(action.payload)
-        },
-        shiftAlert(state) {
-            state.alerts.pop()
-        }
-    }
+  name: 'alerts',
+  initialState,
+  reducers: {
+    pushAlert(state, action: PayloadAction<IAlert>) {
+      state.alerts.unshift(action.payload)
+    },
+    shiftAlert(state) {
+      state.alerts.pop()
+    },
+  },
 })
 
-export default alertsSlice.reducer;
+export default alertsSlice.reducer

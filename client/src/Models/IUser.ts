@@ -1,8 +1,8 @@
-import {ISchema} from "./ISchema";
+import { ISchema } from './ISchema'
 
 export interface IUser {
-    id: string,
-    email: string,
-    name: string,
-    schemes: ISchema[]
+  id: string
+  email: string
+  name: string
+  schemes: ISchema[]
 }
