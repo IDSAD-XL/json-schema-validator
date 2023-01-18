@@ -21,6 +21,7 @@ app.use(jwt())
 
 app.use('/api/user', require('./users/users.controller'))
 app.use('/api/schema', require('./schemes/schemes.controller'))
+app.use('/api/list', require('./schemes/list.controller'))
 
 app.use(errorHandler)
 

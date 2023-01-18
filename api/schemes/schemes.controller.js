@@ -3,7 +3,7 @@ const express = require('express')
 const router = express.Router()
 const schemeService = require("./schemes.service");
 
-router.post('/schemes/', create)
+router.post('/', create)
 
 function create(req, res, next) {
 
