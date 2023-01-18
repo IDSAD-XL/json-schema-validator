@@ -20,6 +20,7 @@ app.use(cors());
 app.use(jwt())
 
 app.use('/api/user', require('./users/users.controller'))
+app.use('/api/schema', require('./schemes/schemes.controller'))
 
 app.use(errorHandler)
 
