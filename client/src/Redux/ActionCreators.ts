@@ -133,10 +133,11 @@ const pushAlert = (alert: AbstractAlert) => async (dispatch: AppDispatch) => {
 export const createNewScheme =
   () => async (dispatch: AppDispatch, getState) => {
     const newScheme: ISchema = {
-      id: Math.floor(Math.random() * 5000000).toString(),
-      name: '',
-      lastChange: Date.now(),
-      content: '',
+        id: Math.floor(Math.random() * 5000000).toString(),
+        name: '',
+        lastChange: Date.now(),
+        content: '',
+        json: ''
     }
 
     dispatch(schemesSlice.actions.addSchema(newScheme))

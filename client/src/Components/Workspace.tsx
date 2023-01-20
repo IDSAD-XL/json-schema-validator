@@ -20,7 +20,7 @@ function Workspace() {
 
     const dispatch = useAppDispatch()
 
-    const [scheme, setScheme] = useState<ISchema>({id: '', name: '', content: "", lastChange: 1})
+    const [scheme, setScheme] = useState<ISchema>({id: '', name: '', content: "", lastChange: 1, json: ''})
 
     const [name, setName] = useState<string>('')
     const [schemaContent, setSchemaContent] = useState<string>('');
@@ -31,7 +31,6 @@ function Workspace() {
     const validateAndSave = () => {
         clearTimeout(validateAndSaveTimeoutHandler)
         validateAndSaveTimeoutHandler = setTimeout(() => {
-            console.log('timeout')
             saveScheme()
             validate()
         }, 500)
@@ -72,6 +71,7 @@ function Workspace() {
             setScheme(findScheme)
             setName(findScheme.name)
             setSchemaContent(findScheme.content)
+            setJson(findScheme.json)
         }
     }, [activeScheme])
 
@@ -81,14 +81,15 @@ function Workspace() {
                 ...prevState,
                 name: name,
                 lastChange: Date.now(),
-                content: schemaContent
+                content: schemaContent,
+                json: json
             }
         })
-    }, [name, schemaContent])
+    }, [name, schemaContent, json])
 
     useEffect(() => {
         validateAndSave()
-    }, [name, schemaContent])
+    }, [name, schemaContent, json])
 
     return (
         <div className="workspace-wrapper">
@@ -110,51 +111,60 @@ function Workspace() {
                     </p>
                   </div>
                   <div className="workspace__content">
-                    <h2>JSON Schema</h2>
-                    <form>
+                    <div className="workspace__content-item">
+                      <h2>JSON Schema</h2>
+                        {schemaErrors.length > 0 && (
+                            <ul>
+                                {schemaErrors.map((error) => (
+                                    <li key={error.dataPath}>{error.message}</li>
+                                ))}
+                            </ul>
+                        )}
+                        {schemaErrors.length === 0 && (
+                            <p>There are no errors</p>
+                        )}
+                      <form>
+                        <CodeEditor
+                          language="json"
+                          value={schemaContent}
+                          placeholder="Input your schema here"
+                          onChange={handleSchemaChange}
+                          padding={15}
+                          style={{
+                              fontSize: 15,
+                              minHeight: '40vh',
+                              backgroundColor: "#f5f5f5",
+                              fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
+                          }}
+                        />
+                      </form>
+                    </div>
+                    <div className="workspace__content-item">
+                      <h2>JSON</h2>
+                        {jsonErrors.length > 0 && (
+                            <ul>
+                                {jsonErrors.map((error) => (
+                                    <li key={error.dataPath}>{error.message}</li>
+                                ))}
+                            </ul>
+                        )}
+                        {jsonErrors.length === 0 && (
+                            <p>There are no errors</p>
+                        )}
                       <CodeEditor
                         language="json"
-                        value={schemaContent}
-                        placeholder="Input your schema here"
-                        onChange={handleSchemaChange}
+                        value={json}
+                        placeholder="Input your object here"
+                        onChange={handleJsonChange}
                         padding={15}
                         style={{
                             fontSize: 15,
+                            minHeight: '40vh',
                             backgroundColor: "#f5f5f5",
                             fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
                         }}
                       />
-                    </form>
-                      {schemaErrors.length > 0 && (
-                          <ul>
-                              {schemaErrors.map((error) => (
-                                  <li key={error.dataPath}>{error.message}</li>
-                              ))}
-                          </ul>
-                      )}
-                    <h2>JSON</h2>
-                    <CodeEditor
-                      language="json"
-                      value={json}
-                      placeholder="Input your object here"
-                      onChange={handleJsonChange}
-                      padding={15}
-                      style={{
-                          fontSize: 15,
-                          backgroundColor: "#f5f5f5",
-                          fontFamily: 'ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace',
-                      }}
-                    />
-                      {jsonErrors.length > 0 && (
-                          <ul>
-                              {jsonErrors.map((error) => (
-                                  <li key={error.dataPath}>{error.message}</li>
-                              ))}
-                          </ul>
-                      )}
-                    <div className="workspace__buttons">
-                      <button className="button" onClick={validate}>Validate</button>
-                      <button className="button" onClick={saveScheme}>Save</button>
+
                     </div>
                   </div>
                 </div>
