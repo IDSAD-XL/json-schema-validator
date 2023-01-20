@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch, useAppSelector} from "../Hooks/redux";
-import {createNewScheme, setSchemeIntoWorkspace} from "../Redux/ActionCreators";
+import {createNewScheme, deleteSchema, setSchemeIntoWorkspace} from "../Redux/ActionCreators";
+import {ISchema} from "../Models/ISchema";
 
 const Sidebar = () => {
     const { schemes } = useAppSelector(state => state.schemesReducer)
@@ -12,6 +13,10 @@ const Sidebar = () => {
 
     const handleSchemeClick = (id: string) => {
         dispatch(setSchemeIntoWorkspace(id))
+    }
+
+    const handleDeleteClick = (scheme: ISchema) => {
+        dispatch(deleteSchema(scheme))
     }
 
     return (
@@ -34,9 +39,19 @@ const Sidebar = () => {
                     schemes.map((item) =>
                         <div
                             key={item.id} className="sidebar-saved-schemes__item"
-                            onClick={(e) => handleSchemeClick(item.id)}
                         >
-                            {item.name || "New Scheme"}
+                            <span
+                              className="sidebar-saved-schemes__item-title"
+                              onClick={(e) => handleSchemeClick(item.id)}
+                            >
+                              {item.name || "New Scheme"}
+                            </span>
+                            <span
+                              className="sidebar-saved-schemes__item-delete"
+                              onClick={() => {handleDeleteClick(item)}}
+                            >
+                              Delete
+                            </span>
                         </div>
                     )
                 }

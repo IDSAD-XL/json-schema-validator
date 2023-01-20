@@ -157,6 +157,14 @@ export const setSchemeIntoWorkspace =
     dispatch(workspaceSlice.actions.setSchema(scheme))
   }
 
+export const deleteSchema =
+  (scheme: ISchema) => async (dispatch: AppDispatch) => {
+    dispatch(schemesSlice.actions.removeSchema(scheme))
+    dispatch(postSchemes())
+    dispatch(createInfoAlert('Scheme deleted'))
+  }
+
+
 export const saveSchema =
   (scheme: ISchema) => async (dispatch: AppDispatch) => {
     dispatch(schemesSlice.actions.updateSchema(scheme))

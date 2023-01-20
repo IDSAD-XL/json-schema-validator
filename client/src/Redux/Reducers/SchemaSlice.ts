@@ -22,7 +22,7 @@ export const schemesSlice = createSlice({
       state.schemes.push(action.payload)
     },
     removeSchema(state, action: PayloadAction<ISchema>) {
-      state.schemes.filter((schema) => schema.id !== action.payload.id)
+      state.schemes = state.schemes.filter((schema) => schema.id !== action.payload.id)
     },
     setSchemes(state, action: PayloadAction<ISchema[]>) {
       state.schemes = action.payload

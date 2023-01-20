@@ -32,9 +32,35 @@
     }
 
     &__item {
-      cursor: pointer;
-      font-size: 20px;
-      line-height: 26px;
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+
+      &-title {
+        font-size: 20px;
+        line-height: 26px;
+        cursor: pointer;
+      }
+
+      &-delete {
+        opacity: 0;
+        pointer-events: none;
+        background-color: #ff3434;
+        transition: opacity .2s ease, transform .4s ease;
+        transform: scale(0.9);
+        cursor: pointer;
+        color: #ffffff;
+        border-radius: 4px;
+        padding: 2px 4px;
+      }
+
+      &:hover {
+        .sidebar-saved-schemes__item-delete {
+          opacity: 1;
+          pointer-events: all;
+          transform: scale(1);
+        }
+      }
     }
   }
 }
