@@ -1,11 +1,14 @@
-import { Alert, AlertColors, IAlert } from '../IAlert'
+import { IErrorAlert } from './types/IErrorAlert'
+import { Alert } from './types/Alert'
+import { AlertColors } from './types/AlertColor'
 
-export class ErrorAlert extends Alert {
+export class ErrorAlert extends Alert implements IErrorAlert {
   constructor(text) {
-    super(AlertColors.error, text)
+    super(text)
+    this.type = AlertColors.error
   }
 
-  public serialize(): IAlert {
+  public serialize() {
     return super.serialize()
   }
 }

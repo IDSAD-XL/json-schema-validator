@@ -3,13 +3,14 @@ import axios from 'axios'
 import { IUser } from '../Models/IUser'
 import { userSlice } from './Reducers/UserSlice'
 import { modalSlice, modalTypes } from './Reducers/ModalSlice'
-import { Alert, IAlert } from '../Models/IAlert'
 import { alertsSlice } from './Reducers/AlertsSlice'
 import { ISchema } from '../Models/ISchema'
 import { schemesSlice } from './Reducers/SchemaSlice'
 import { workspaceSlice } from './Reducers/WorkspaceSlice'
-import { WarningAlert } from '../Models/Alerts/WarningAlert'
-import { SuccessAlert } from '../Models/Alerts/SuccessAlert'
+import { AbstractAlert } from '../Models/Alerts/AbstractAlert'
+import { AlertsFactory } from '../Models/Alerts/AlertsFactory'
+
+const alertsFactory = new AlertsFactory()
 
 const tokenConfig = (token: string) => {
   return {
@@ -80,10 +81,11 @@ export const setToken = (token?: string) => async (dispatch: AppDispatch) => {
 export const logout = () => async (dispatch: AppDispatch) => {
   dispatch(userSlice.actions.logout())
   dispatch(schemesSlice.actions.setSchemes([]))
-  const warningAlert = new WarningAlert(
-    'You logged out, to see your saved schemes log in your account'
+  dispatch(
+    createWarningAlert(
+      'You logged out, to see your saved schemes log in your account'
+    )
   )
-  pushAlert(warningAlert)
 }
 
 export const openModal =
@@ -96,7 +98,31 @@ export const closeModal = () => async (dispatch: AppDispatch) => {
   dispatch(modalSlice.actions.closeModal())
 }
 
-export const pushAlert = (alert: Alert) => async (dispatch: AppDispatch) => {
+export const createWarningAlert =
+  (text: string) => async (dispatch: AppDispatch) => {
+    const alert = alertsFactory.createWarningAlert(text)
+    dispatch(pushAlert(alert))
+  }
+
+export const createSuccessAlert =
+  (text: string) => async (dispatch: AppDispatch) => {
+    const alert = alertsFactory.createSuccessAlert(text)
+    dispatch(pushAlert(alert))
+  }
+
+export const createInfoAlert =
+  (text: string) => async (dispatch: AppDispatch) => {
+    const alert = alertsFactory.createInfoAlert(text)
+    dispatch(pushAlert(alert))
+  }
+
+export const createErrorAlert =
+  (text: string) => async (dispatch: AppDispatch) => {
+    const alert = alertsFactory.createErrorAlert(text)
+    dispatch(pushAlert(alert))
+  }
+
+const pushAlert = (alert: AbstractAlert) => async (dispatch: AppDispatch) => {
   const serializedAlert = alert.serialize()
   dispatch(alertsSlice.actions.pushAlert(serializedAlert))
   setTimeout(() => {
@@ -117,9 +143,7 @@ export const createNewScheme =
 
     dispatch(setSchemeIntoWorkspace(newScheme.id))
 
-    const successAlert = new SuccessAlert('Created new scheme')
-
-    dispatch(pushAlert(successAlert))
+    dispatch(createSuccessAlert('Created new scheme'))
 
     if (getState().userSlice.user) {
       dispatch(postSchemes())
@@ -135,7 +159,5 @@ export const saveSchema =
   (scheme: ISchema) => async (dispatch: AppDispatch) => {
     dispatch(schemesSlice.actions.updateSchema(scheme))
     dispatch(postSchemes())
-
-    const successAlert = new SuccessAlert('Scheme saved')
-    dispatch(pushAlert(successAlert))
+    dispatch(createSuccessAlert('Scheme saved'))
   }

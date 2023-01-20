@@ -1,4 +1,3 @@
-import { ISchema } from '../../Models/ISchema'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface WorkspaceSlice {

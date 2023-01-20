@@ -1,11 +1,9 @@
 import React, {useState} from 'react';
 import {useAppDispatch} from "../Hooks/redux";
-import {closeModal, openModal, pushAlert} from "../Redux/ActionCreators";
+import {closeModal, createErrorAlert, createSuccessAlert, openModal} from "../Redux/ActionCreators";
 import {modalTypes} from "../Redux/Reducers/ModalSlice";
 import axios from "axios";
 import {userSlice} from "../Redux/Reducers/UserSlice";
-import {ErrorAlert} from "../Models/Alerts/ErrorAlert";
-import {SuccessAlert} from "../Models/Alerts/SuccessAlert";
 
 interface IPostData {
     name: string,
@@ -20,7 +18,7 @@ const SignInForm = () => {
 
     const dispatch = useAppDispatch()
 
-    const handleLoginClick = (event: React.MouseEvent<HTMLSpanElement>) => {
+    const handleLoginClick = () => {
         dispatch(openModal(modalTypes.login))
     }
 
@@ -48,14 +46,11 @@ const SignInForm = () => {
 
                 dispatch(userSlice.actions.userSetToken(payload.token))
 
-                const successAlert = new SuccessAlert(`Successfully registered!`)
-
-                dispatch(pushAlert(successAlert))
+                dispatch(createSuccessAlert(`Successfully registered!`))
 
                 dispatch(closeModal())
             } else {
-                const errorAlert = new ErrorAlert(response.data.error)
-                dispatch(pushAlert(errorAlert))
+                dispatch(createErrorAlert(response.data.error))
             }
         } catch (e) {
             console.log(e)

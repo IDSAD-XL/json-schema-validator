@@ -1,11 +1,14 @@
-import { Alert, AlertColors, IAlert } from '../IAlert'
+import { Alert } from './types/Alert'
+import { AlertColors } from './types/AlertColor'
+import { ISuccessAlert } from './types/ISuccessAlert'
 
-export class SuccessAlert extends Alert {
+export class SuccessAlert extends Alert implements ISuccessAlert {
   constructor(text) {
-    super(AlertColors.success, text)
+    super(text)
+    this.type = AlertColors.success
   }
 
-  public serialize(): IAlert {
+  public serialize() {
     return super.serialize()
   }
 }
