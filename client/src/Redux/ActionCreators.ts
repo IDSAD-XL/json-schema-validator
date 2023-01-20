@@ -81,6 +81,7 @@ export const setToken = (token?: string) => async (dispatch: AppDispatch) => {
 export const logout = () => async (dispatch: AppDispatch) => {
   dispatch(userSlice.actions.logout())
   dispatch(schemesSlice.actions.setSchemes([]))
+  dispatch(workspaceSlice.actions.setSchema(null))
   dispatch(
     createWarningAlert(
       'You logged out, to see your saved schemes log in your account'

@@ -12,7 +12,7 @@ export const workspaceSlice = createSlice({
   name: 'schemes',
   initialState,
   reducers: {
-    setSchema(state, action: PayloadAction<string>) {
+    setSchema(state, action: PayloadAction<string | null>) {
       state.activeScheme = action.payload
     },
   },
